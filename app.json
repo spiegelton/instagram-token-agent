@@ -1,0 +1,34 @@
+{
+  "name": "Instagram Token Agent",
+  "description": "A service to keep your Instagram Basic Display API token fresh.",
+  "repository": "https://github.com/companionstudio/instagram-token-agent",
+  "logo": "https://raw.githubusercontent.com/companionstudio/instagram-token-agent/master/public/logo.svg?sanitize=true",
+  "keywords": ["instagram", "token", "basic-display-api", "instafeed"],
+  "addons": [
+    "temporize:developer",
+    "heroku-postgresql:hobby-dev",
+    "memcachier:dev"
+  ],
+  "env": {
+    "STARTING_TOKEN": {
+      "value": "copy_token_here",
+      "description": "Your initial Instagram token value, sourced from Facebook's app dashboard."
+    },
+    "APP_NAME": {
+      "value": "copy_app_name_here",
+      "description": "Copy the name you chose for your app here (so the app can know its own name)."
+    },
+    "ALLOWED_DOMAINS": {
+      "value": "yourwebsite.com",
+      "description": "The domains you want to access your token from (separate with spaces)."
+    },
+    "WEBHOOK_SECRET": {
+      "generator": "secret",
+      "description": "Used to sign webhook requests coming in from the Temporize scheduling service."
+    }
+  },
+  "scripts": {
+    "postdeploy": "bundle exec rake setup"
+  },
+  "success_url": "/"
+}

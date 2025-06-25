@@ -1,0 +1,22 @@
+!!!5
+%html
+  %head
+    %meta{'http-equiv' => "Content-Type", :content => "text/html; charset=UTF-8"}
+    %meta{:name => 'viewport', :content => 'width=device-width, initial-scale=1.0'}
+
+    %title= @site_name
+
+    %link{:rel => 'stylesheet', :type => 'text/css', :href => '/style.css'}
+
+  %body
+    %main
+      .main-liner
+        = yield
+
+        .main-liner-foot
+          %a{href: app_info['repository']} Full info and usage instructions on GitHub
+          %span.version v#{InstagramTokenAgent::VERSION}
+
+      .credit
+        Made with 🥖 by
+        %a{href: 'https://github.com/companionstudio'} Companion.

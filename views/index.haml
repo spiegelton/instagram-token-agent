@@ -1,0 +1,52 @@
+%h1 Instagram Token Agent
+
+- unless ENV['ALLOWED_DOMAINS']
+  .all-allowed-notification
+    %strong Heads up!
+    You haven't set the
+    %code ALLOWED_DOMAINS
+    config variable to let the agent know which domains it can serve. Visit your
+    %a{href: 'https://dashboard.heroku.com/apps/companion-token-agent/settings'} Heroku Dashboard
+    or see
+    %a{href: 'https://github.com/companionstudio/instagram-token-agent/wiki/Setting-Config-Vars-on-Heroku'} the wiki for instructions.
+
+.agent-status-display
+  %h2
+    .ticker
+      .a
+      .b
+      .c
+
+    Checking status...
+
+  :javascript
+    //Fetch and insert the status info
+    (function(){
+      var request = new XMLHttpRequest();
+
+      request.open('GET', '/status', true);
+
+      request.onload = function() {
+        if (request.status >= 200 && request.status < 400) {
+          document.querySelector('.agent-status-display').innerHTML = request.responseText;
+        }
+      };
+
+      request.send();
+    })();
+
+%h3 Usage
+
+%p To use your token, paste the following snippet into your web page:
+
+%pre.snippet
+  %code
+    &= "<script src='https://#{request.host_with_port}/token.js'></script>"
+
+%p
+  Your API token will be available in a global constant called
+  %code InstagramToken
+
+%p
+  You can also access the token in JSON format at:
+  %a{href: "#{request.url}token.json"} #{request.url}token.json
